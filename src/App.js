@@ -15,14 +15,18 @@ class App extends React.Component {
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(users => this.setState({players: users}))
+      .then(users => this.setState({ players: users }))
   }
 
   render() {
+    const { players, searchField } = this.state;
+    const filteredPlayers = players.filter(player => {
+      return player.name.toLowerCase().includes(searchField.toLowerCase());
+    })
     return (
       <div className="App">
         <input type= 'search' placeholder='Search players' onChange={ e => this.setState({ searchField: e.target.value }) }/>
-        <CardList players={this.state.players}/>
+        <CardList players={ filteredPlayers }/>
       </div>
     );
   }
