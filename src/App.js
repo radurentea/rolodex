@@ -8,7 +8,7 @@ class App extends React.Component {
     super();
 
     this.state = {
-      players: [],
+      robots: [],
       searchField: '',
     };
   }
@@ -16,7 +16,7 @@ class App extends React.Component {
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(users => this.setState({ players: users }))
+      .then(users => this.setState({ robots: users }))
   }
 
   handleChange = e => {
@@ -24,17 +24,17 @@ class App extends React.Component {
   }
 
   render() {
-    const { players, searchField } = this.state;
-    const filteredPlayers = players.filter(player => {
-      return player.name.toLowerCase().includes(searchField.toLowerCase());
+    const { robots, searchField } = this.state;
+    const filteredRobots = robots.filter(robot => {
+      return robot.name.toLowerCase().includes(searchField.toLowerCase());
     })
     return (
       <div className="App">
         <SearchBox
-          placeholder='Search players'
+          placeholder='Search robots'
           handleChange={ this.handleChange }
         />
-        <CardList players={ filteredPlayers }/>
+        <CardList robots={ filteredRobots }/>
       </div>
     );
   }
